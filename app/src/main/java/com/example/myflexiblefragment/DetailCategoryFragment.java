@@ -2,27 +2,35 @@ package com.example.myflexiblefragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link DetailCategoryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DetailCategoryFragment extends Fragment {
+public class DetailCategoryFragment extends Fragment implements View.OnClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    public static String EXTRA_NAME = "extra_name";
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private TextView tvCategoryDescription;
+    private Button btnProfile;
+    private Button btnShowDialog;
+    private TextView tvCategoryName;
+    private String description;
 
     public DetailCategoryFragment() {
         // Required empty public constructor
@@ -46,6 +54,14 @@ public class DetailCategoryFragment extends Fragment {
         return fragment;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,9 +72,40 @@ public class DetailCategoryFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail_category, container, false);
+        View view = inflater.inflate(R.layout.fragment_detail_category, container, false);
+        tvCategoryName = (TextView) view.findViewById(R.id.tv_category_name);
+        tvCategoryDescription = (TextView) view.findViewById(R.id.tv_category_description);
+        btnProfile.setOnClickListener(this);
+        btnProfile = (Button) view.findViewById(R.id.btn_profile);
+        btnShowDialog = (Button) view.findViewById(R.id.btn_show_dialog);
+        btnShowDialog.setOnClickListener(this);
+        return view;
+    }
+
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        String categoryName = getArguments().getString(EXTRA_NAME);
+        tvCategoryName.setText(categoryName);
+        tvCategoryDescription.setText(getDescription());
+    }
+
+    @Override
+    public void onClick(View v) {
+        int Id = getId();
+        if (Id == R.id.btn_profile){
+
+        } else if (Id == R.id.btn_show_dialog){
+
+        }
+       /* switch (v.Id) {
+            case R.id.btn_profile:
+                break;
+            case R.id.btn_show_dialog:
+                break;
+            default:
+                break;
+        }*/
     }
 }
